@@ -45,7 +45,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario salvarUsuario(Usuario usuario) {
 		validarUsuario(usuario);
 		validarEmail(usuario.getEmailUsuario());
-		// usuario.setSenhaUsuario("123");
 		return repository.save(usuario);
 	}
 
@@ -79,12 +78,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional(readOnly = true)
 	public List<Usuario> buscar(Usuario usuarioFiltro) {
 
-		// var q = createQuery(query, Usuario.class);
-		// Example example = Example.of(usuarioFiltro,
-		// ExampleMatcher.matching().
-		/// withIgnoreCase().
-		// withStringMatcher(StringMatcher.CONTAINING));
-		// List<Usuario> findAllActiveUsers();
 		return repository.findByUsuarioCustom(usuarioFiltro.getNmUsuario());
 
 	}

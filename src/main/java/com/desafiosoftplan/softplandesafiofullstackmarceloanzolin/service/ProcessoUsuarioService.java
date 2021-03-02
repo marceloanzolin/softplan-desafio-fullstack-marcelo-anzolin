@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.Optional;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 public interface ProcessoUsuarioService {
 
 
-	Processo salvarProcesso(Processo processo);
+	ProcessoUsuario salvarProcessoUsuario(ProcessoUsuario processoUsuario);
 
-	Processo atualizar(Processo processo);
+	ProcessoUsuario incluirParecer(ProcessoUsuario processoUsuario);
 	
-	void validarProcesso(Processo processo);
-	
-	Optional<Processo> obterPorId(Long codProcesso);
+	Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario);
 	
 	List<Processo> buscarTodosProcessos();
+	
+	void validarProcessoUsuario(ProcessoUsuario processoUsuario);
 	
 
 }

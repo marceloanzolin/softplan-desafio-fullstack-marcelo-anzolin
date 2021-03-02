@@ -47,13 +47,11 @@ public class UsuarioResource {
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody UsuarioDTO usuDto) {
 
-		// Usuario.builder().nmUsuario(usuDto.getNmUsuario()).emailUsuario(usuDto.getEmailUsuario()).senhaUsuario(usuDto.getSenhaUsuario()).tpUsuario(usuDto.getTpUsuario()).build();
-
 		Usuario usuarioConvertido = converter(usuDto);
 
 		try {
 			Usuario usuario = usuarioService.salvarUsuario(usuarioConvertido);
-			// return ResponseEntity.ok(usuario);
+			
 			return new ResponseEntity(usuario, HttpStatus.CREATED);
 		} catch (RNException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

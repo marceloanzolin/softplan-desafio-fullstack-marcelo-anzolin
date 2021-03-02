@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoDTO;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoUsuarioDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoService;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoUsuarioService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,23 +26,23 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProcessoUsuarioResource {
 
-	private final ProcessoService processoService;
+	private final ProcessoUsuarioService processoUsuarioService;
 
 	@PostMapping
-	public ResponseEntity salvar(@RequestBody ProcessoDTO processoDto) {
+	public ResponseEntity salvar(@RequestBody ProcessoUsuarioDTO processoUsuarioDTO) {
 
-		Processo processoConvertido = converter(processoDto);
+		ProcessoUsuario processoUsuarioConvertido = converterProcesso(processoUsuarioDTO);
 
 		try {
-			Processo processo = processoService.salvarProcesso(processoConvertido);
+			ProcessoUsuario processoUsuario = processoUsuarioService.salvarProcessoUsuario(processoUsuarioConvertido);
 		
-			return new ResponseEntity(processo, HttpStatus.CREATED);
+			return new ResponseEntity(processoUsuario, HttpStatus.CREATED);
 		} catch (RNException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
-
+/*
 	@GetMapping("{id}")
 	public ResponseEntity obterUsuarioPorID(@PathVariable("codProcesso") Long codProcesso) {
 
@@ -58,26 +61,27 @@ public class ProcessoUsuarioResource {
 		return ResponseEntity.ok(listaProcessos);
 	}
 	
+*/
+	private ProcessoUsuario converterProcesso(ProcessoUsuarioDTO processoUsuarioDTO) {
 
-	private Processo converter(ProcessoDTO processoDto) {
+		ProcessoUsuario processoUsuario = new ProcessoUsuario();
 
-		Processo processo = new Processo();
+		//if (processoDto.getCodProcesso() != null) {
+		//	processo.setCodProcesso(processoDto.getCodProcesso());
+		//}
 
-		if (processoDto.getCodProcesso() != null) {
-			processo.setCodProcesso(processoDto.getCodProcesso());
-		}
+	//	processo.setNomeProcesso(processoDto.getNomeProcesso());
+	//	processo.setDescricaoProcesso(processoDto.getDescricaoProcesso());
 
-		processo.setNomeProcesso(processoDto.getNomeProcesso());
-		processo.setDescricaoProcesso(processoDto.getDescricaoProcesso());
-
-		return processo;
+		return processoUsuario;
 	}
 
-	private ProcessoDTO converterProcessoDTO(Processo processo) {
+	
+	//private ProcessoUsuarioDTO converterProcessoDTO(ProcessoUsuario processoUsuario) {
 
-		return ProcessoDTO.builder().codProcesso(processo.getCodProcesso()).descricaoProcesso(processo.getDescricaoProcesso())
-				.nomeProcesso(processo.getNomeProcesso()).build();
+	//	return ProcessoUsuarioDTO.builder().codProcesso(processoUsuario.getCodProcessoUsuario().getCodprocesso()).codUsuarioFinalizador(processoUsuario.getCodProcessoUsuario().getCodusuariofinalizador())
+	// .codUsuarioTriador(processoUsuario.getUsuarioTriador().getCodUsuario()).parecerProcesso(processoUsuario.getParecerProcesso()).statusProcesso(processoUsuario.getStatusProcesso().name()).build();
 
-	}
+	//}
 
 }

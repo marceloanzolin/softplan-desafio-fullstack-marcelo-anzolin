@@ -58,12 +58,6 @@ public class ProcessoServiceImpl implements ProcessoService {
 
 	}
 
-//	@Override
-	//public void atualizarParecer(Usuario usuario, TipoUsuario tpusuario) {
-		//usuario.setTpUsuario(tpusuario);
-		//atualizar(usuario);
-	//}
-
 	@Override
 	public void validarProcesso(Processo processo) {
 		if (processo.getNomeProcesso()== null || processo.getNomeProcesso().trim().equals("")) {

@@ -15,8 +15,8 @@ public interface ProcessoUsuarioRepository extends JpaRepository<ProcessoUsuario
 
 	
 	
-	@Query(value = "SELECT * FROM processos.usuario WHERE UPPER(NMUSUARIO)  like UPPER(:nmUsuario)", nativeQuery = true)
-	List<Usuario> findByUsuarioCustom(@Param("nmUsuario") String nmUsuario);
+	@Query(value = "SELECT * FROM processos.processousuario WHERE codusuariofinalizador = :codusuariofinalizador)", nativeQuery = true)
+	List<ProcessoUsuario> findByProcessoUsuarioCustom(@Param("codusuariofinalizador") String codUsuarioFinalizador);
 	
 	
 	List<ProcessoUsuario> findAll();

@@ -42,6 +42,6 @@ public class ProcessoUsuario {
 
 	@Column(name = "statusProcesso")
 	@Enumerated(value = EnumType.STRING)
-	private TipoStatusProcesso descricaoProcesso;
+	private TipoStatusProcesso statusProcesso;
 
 }
