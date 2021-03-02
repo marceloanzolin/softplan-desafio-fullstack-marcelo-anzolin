@@ -8,26 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.ErroAutenticacao;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.ProcessoRepository;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.ProcessoUsuarioRepository;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.UsuarioRepository;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoService;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoUsuarioService;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.UsuarioService;
 
 @Service
 public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
-	private ProcessoUsuarioRepository processoUsuarioRepository;// como não acessa direto a base de dados
+	private  ProcessoUsuarioRepository processoUsuarioRepository;// como não acessa direto a base de dados
 
 	@Autowired
-	public ProcessoUsuarioServiceImpl(ProcessoRepository processorepository) {
+	public ProcessoUsuarioServiceImpl(ProcessoUsuarioRepository processoUsuarioRepository) {
 		super();
 		this.processoUsuarioRepository = processoUsuarioRepository;
 	}
@@ -37,6 +30,7 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 	public ProcessoUsuario salvarProcessoUsuario(ProcessoUsuario processoUsuario) {
 
 		validarProcessoUsuario(processoUsuario);
+		
 
 		return processoUsuarioRepository.save(processoUsuario);
 	}

@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
+//@Embeddable
 public class ProcessoUsuario {
 	@EmbeddedId
 	private ProcessoId codProcessoUsuario;
@@ -40,7 +40,7 @@ public class ProcessoUsuario {
 	@Column(name = "parecerprocesso")
 	private String parecerProcesso;
 
-	@Column(name = "statusProcesso")
+	@Column(name = "statusprocesso")
 	@Enumerated(value = EnumType.STRING)
 	private TipoStatusProcesso statusProcesso;
 
