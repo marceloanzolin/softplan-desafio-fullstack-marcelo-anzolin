@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoDTO;
@@ -77,24 +78,17 @@ public class ProcessoUsuarioResource {
 		}).orElseGet(() -> new ResponseEntity("Usuário não encontrado!", HttpStatus.BAD_REQUEST));
 		
 	}
+	
+	@GetMapping 
+	public ResponseEntity buscarProcessoUsuarioStatus(@RequestParam("codusuariofinalizador") Long codUsuarioFinalizador, @RequestParam("tpstatus") String tpStatus) {
 
-	/*
-	 * @GetMapping("{id}") public ResponseEntity
-	 * obterUsuarioPorID(@PathVariable("codProcesso") Long codProcesso) {
-	 * 
-	 * return processoService.obterPorId(codProcesso) .map(processo -> new
-	 * ResponseEntity(converterProcessoDTO(processo), HttpStatus.OK)) .orElseGet(()
-	 * -> new ResponseEntity(HttpStatus.NOT_FOUND)); }
-	 * 
-	 * 
-	 * @GetMapping public ResponseEntity buscarTodosProcessos() {
-	 * 
-	 * List<Processo>listaProcessos = processoService.buscarTodosProcessos();
-	 * 
-	 * 
-	 * return ResponseEntity.ok(listaProcessos); }
-	 * 
-	 */
+		List<ProcessoUsuario>listaProcessosUsuarios = processoUsuarioService.buscarProcessoUsuarioStatus(codUsuarioFinalizador,tpStatus);
+		
+
+		return ResponseEntity.ok(listaProcessosUsuarios);
+	}
+	
+
 	private ProcessoUsuario converterProcessoUsuario(ProcessoUsuarioDTO processoUsuarioDTO) {
 
 		ProcessoUsuario processoUsuario = new ProcessoUsuario();
@@ -121,14 +115,5 @@ public class ProcessoUsuarioResource {
 
 		return processoUsuario;
 	}
-
-	// private ProcessoUsuarioDTO converterProcessoDTO(ProcessoUsuario
-	// processoUsuario) {
-
-	// return
-	// ProcessoUsuarioDTO.builder().codProcesso(processoUsuario.getCodProcessoUsuario().getCodprocesso()).codUsuarioFinalizador(processoUsuario.getCodProcessoUsuario().getCodusuariofinalizador())
-	// .codUsuarioTriador(processoUsuario.getUsuarioTriador().getCodUsuario()).parecerProcesso(processoUsuario.getParecerProcesso()).statusProcesso(processoUsuario.getStatusProcesso().name()).build();
-
-	// }
 
 }

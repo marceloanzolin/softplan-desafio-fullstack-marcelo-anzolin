@@ -48,9 +48,9 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Processo> buscarTodosProcessos() {
+	public List<ProcessoUsuario> buscarProcessoUsuarioStatus(Long codUsuarioFinalizador,String tpStatus) {
 
-		return null; // processoUsuarioRepository.findAll();
+		return processoUsuarioRepository.findByProcessoUsuarioStatusCustom(codUsuarioFinalizador,tpStatus);
 
 	}
 

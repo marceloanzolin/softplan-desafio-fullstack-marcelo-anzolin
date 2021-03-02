@@ -15,16 +15,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+/**
+ * Classe responsável por mapear a tabela de Usuários.
+ * Utilizado para realização dos mapeamentos a biblioteca @Lombok. <p>
+ * 
+ * @author Marcelo Anzolin
+ * @version 1.0
+ * @see <package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity</a>
+ */
 
 @Entity
 @Table(name = "usuario", schema = "processos")
-//para toda a entidade
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Usuario {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codusuario")

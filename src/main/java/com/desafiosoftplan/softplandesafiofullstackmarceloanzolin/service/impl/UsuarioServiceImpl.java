@@ -11,25 +11,32 @@ import org.springframework.transaction.annotation.Transactional;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.ErroAutenticacao;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.UsuarioRepository;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.UsuarioService;
+
+/**
+ * Implementação do serviço  de {@see UsuarioService.java}
+ * 
+ * @author Marcelo Anzolin
+ * @version 1.0
+ * @see com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.impl
+ */
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	private UsuarioRepository repository;// como não acessa direto a base de dados
+	private UsuarioRepository usuarioRepository;
 
 	@Autowired
-	public UsuarioServiceImpl(UsuarioRepository repository) {
+	public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
 		super();
-		this.repository = repository;
+		this.usuarioRepository = usuarioRepository;
 	}
 
 	@Override
 	public Usuario autenticar(String email, String senha) {
 
-		Optional<Usuario> usuario = repository.findByEmailUsuario(email);
+		Optional<Usuario> usuario = usuarioRepository.findByEmailUsuario(email);
 		
 		if (!usuario.isPresent()) {
 			throw new ErroAutenticacao("Email não encontrado.");
@@ -43,49 +50,50 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional // abre a transação e comita
 	public Usuario salvarUsuario(Usuario usuario) {
+		
 		validarUsuario(usuario);
 		validarEmail(usuario.getEmailUsuario());
-		return repository.save(usuario);
+		
+		return usuarioRepository.save(usuario);
 	}
 
 	@Override
 	public void validarEmail(String email) {
 
-		boolean existeEmail = repository.existsByEmailUsuario(email);
+		boolean existeEmail = usuarioRepository.existsByEmailUsuario(email);
+		
 		if (existeEmail) {
 			throw new RNException("Email informado já existente!");
 		}
-
 	}
 
 	@Override
 	@Transactional
 	public Usuario atualizar(Usuario usuario) {
+		
 		validarUsuario(usuario);
 		Objects.requireNonNull(usuario.getCodUsuario());
-		return repository.save(usuario);
+		return usuarioRepository.save(usuario);
 	}
 
 	@Override
-	@Transactional // abre a transação e comita
+	@Transactional
 	public void deletar(Usuario usuario) {
+		
 		Objects.requireNonNull(usuario.getCodUsuario());
-		repository.delete(usuario);
-
+		usuarioRepository.delete(usuario);
+	}
+	
+	@Override
+	public Optional<Usuario> obterPorId(Long codUsuario) {
+		
+		return usuarioRepository.findById(codUsuario);
 	}
 
-	@Override
 	@Transactional(readOnly = true)
-	public List<Usuario> buscar(Usuario usuarioFiltro) {
-
-		return repository.findByUsuarioCustom(usuarioFiltro.getNmUsuario());
-
-	}
-
-	@Override
-	public void atualizarStatus(Usuario usuario, TipoUsuario tpusuario) {
-		usuario.setTpUsuario(tpusuario);
-		atualizar(usuario);
+	public List<Usuario> buscarTodosUsuarios() {
+		
+		return usuarioRepository.findAll();
 	}
 
 	@Override
@@ -112,15 +120,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	}
 
-	@Override
-	public Optional<Usuario> obterPorId(Long codUsuario) {
-
-		return repository.findById(codUsuario);
-	}
-
-	@Transactional(readOnly = true)
-	public List<Usuario> buscarTodosUsuarios() {
-		return repository.findAll();
-	}
+	
 
 }

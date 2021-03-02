@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-//@Embeddable
 public class ProcessoUsuario {
 	@EmbeddedId
 	private ProcessoId codProcessoUsuario;
