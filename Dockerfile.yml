@@ -1,0 +1,19 @@
+FROM openjdk:8
+
+ARG PROFILE
+ARG ADDITIONAL_OPTS
+
+ENV PROFILE=${PROFILE}
+END ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
+
+WORKDIR /opt/softplan_desafio
+
+COPY /target/softplan_desafio.jar softplan-desafio-fullstack-marcelo-anzolin.jar
+
+SHELL ["*/bin/sh", "-c"]
+
+EXPOSE  5005
+EXPOSE 8081
+
+CMD java ${ADDITIONAL_OPTS} -jar softplan-desafio-fullstack-marcelo-anzolin.jar --spring.profiles.active=${PROFILE}
+
