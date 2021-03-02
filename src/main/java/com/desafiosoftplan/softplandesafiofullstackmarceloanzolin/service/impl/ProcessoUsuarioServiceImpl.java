@@ -56,8 +56,8 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario) {
-		return null;
+	public Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso,Long codUsuario) {
+		return processoUsuarioRepository.findByProcessoUsuarioCustom(codProcesso,codUsuario);
 	}
 
 	@Override
@@ -78,6 +78,12 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 			throw new RNException("Informe o Usuário Finalizador");
 		}
 
+	}
+
+	@Override
+	public Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

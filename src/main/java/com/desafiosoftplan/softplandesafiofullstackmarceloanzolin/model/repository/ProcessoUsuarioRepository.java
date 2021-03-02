@@ -1,6 +1,7 @@
 package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +17,8 @@ public interface ProcessoUsuarioRepository extends JpaRepository<ProcessoUsuario
 	@Query(value = "SELECT * FROM processos.processousuario WHERE codusuariofinalizador = :codusuariofinalizador)", nativeQuery = true)
 	List<ProcessoUsuario> findByProcessoUsuarioCustom(@Param("codusuariofinalizador") String codUsuarioFinalizador);
 	
+	@Query(value = "SELECT * FROM processos.processousuario WHERE codprocesso = :codprocesso and codusuariofinalizador = :codusuariofinalizador", nativeQuery = true)
+	Optional<ProcessoUsuario> findByProcessoUsuarioCustom(@Param("codprocesso") Long codProcesso,@Param("codusuariofinalizador") Long codUsuarioFinalizador);
 	
 	List<ProcessoUsuario> findAll();
 

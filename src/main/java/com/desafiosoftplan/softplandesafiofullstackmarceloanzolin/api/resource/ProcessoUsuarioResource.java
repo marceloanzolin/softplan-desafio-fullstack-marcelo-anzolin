@@ -2,16 +2,19 @@ package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.resource;
 
 import java.util.List;
 
+import org.hibernate.loader.plan.exec.process.internal.AbstractRowReader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoDTO;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoIdDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoUsuarioDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
@@ -32,21 +35,47 @@ import lombok.RequiredArgsConstructor;
 public class ProcessoUsuarioResource {
 
 	private final ProcessoUsuarioService processoUsuarioService;
+	private final ProcessoService processoService;
 	private final UsuarioService usuarioService;
 
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody ProcessoUsuarioDTO processoUsuarioDTO) {
 
-		ProcessoUsuario processoUsuarioConvertido = converterProcesso(processoUsuarioDTO);
+		ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
 
 		try {
-			System.out.println(processoUsuarioConvertido);
+			
 			ProcessoUsuario processoUsuario = processoUsuarioService.salvarProcessoUsuario(processoUsuarioConvertido);
 
 			return new ResponseEntity(processoUsuario, HttpStatus.CREATED);
 		} catch (RNException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
+	}
+	
+	@PutMapping("{codprocesso}/{codusuariofinalizador}")
+	public ResponseEntity inserirParecer( @PathVariable("codprocesso") Long codProcesso , @PathVariable("codusuariofinalizador") Long codUsuarioFinalizador ,@RequestBody ProcessoUsuarioDTO processoUsuarioDTO ) {
+		
+		return  processoUsuarioService.obterProcessoUsuario(codProcesso,codUsuarioFinalizador).map(processoUsuarioReturn -> {
+			try {
+				System.out.println(processoUsuarioDTO);
+				ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
+
+				processoUsuarioConvertido.setCodProcessoUsuario(
+						new ProcessoId(processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador()));
+				
+				processoUsuarioConvertido.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
+				processoUsuarioConvertido.setStatusProcesso(TipoStatusProcesso.F);
+
+				processoUsuarioService.incluirParecer(processoUsuarioConvertido);
+
+				return ResponseEntity.ok(processoUsuarioConvertido);
+			} catch (RNException e) {
+				return ResponseEntity.badRequest().body(e.getMessage());
+			}
+
+		}).orElseGet(() -> new ResponseEntity("Usuário não encontrado!", HttpStatus.BAD_REQUEST));
+		
 	}
 
 	/*
@@ -66,7 +95,7 @@ public class ProcessoUsuarioResource {
 	 * return ResponseEntity.ok(listaProcessos); }
 	 * 
 	 */
-	private ProcessoUsuario converterProcesso(ProcessoUsuarioDTO processoUsuarioDTO) {
+	private ProcessoUsuario converterProcessoUsuario(ProcessoUsuarioDTO processoUsuarioDTO) {
 
 		ProcessoUsuario processoUsuario = new ProcessoUsuario();
 
@@ -75,7 +104,7 @@ public class ProcessoUsuarioResource {
 					new ProcessoId(processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador()));
 		}
 
-		if (processoUsuarioDTO.getCodUsuarioTriador() != 0) {
+		if (processoUsuarioDTO.getCodUsuarioTriador() != 0 || processoUsuarioDTO.getCodUsuarioTriador() != null) {
 			Usuario usuarioTriador = usuarioService.obterPorId(processoUsuarioDTO.getCodUsuarioTriador())
 					.orElseThrow(() -> new RNException("Usuário triador não encontrado."));
 

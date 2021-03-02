@@ -16,6 +16,8 @@ public interface ProcessoUsuarioService {
 	
 	List<Processo> buscarTodosProcessos();
 	
+	Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso,Long codUsuario);
+	
 	void validarProcessoUsuario(ProcessoUsuario processoUsuario);
 	
 
