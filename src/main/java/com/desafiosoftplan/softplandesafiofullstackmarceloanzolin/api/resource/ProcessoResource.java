@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoStatusProcesso;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,12 @@ public class ProcessoResource {
 
 		try {
 			Processo processo = processoService.salvarProcesso(processoConvertido);
-		
+
 			return new ResponseEntity(processo, HttpStatus.CREATED);
 		} catch (RNException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-
 
 	@GetMapping("{id}")
 	public ResponseEntity obterUsuarioPorID(@PathVariable("codProcesso") Long codProcesso) {
@@ -48,16 +48,13 @@ public class ProcessoResource {
 				.orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
 	}
 
-
 	@GetMapping
 	public ResponseEntity buscarTodosProcessos() {
 
-		List<Processo>listaProcessos = processoService.buscarTodosProcessos();
-		
+		List<Processo> listaProcessos = processoService.buscarTodosProcessos();
 
 		return ResponseEntity.ok(listaProcessos);
 	}
-	
 
 	private Processo converter(ProcessoDTO processoDto) {
 
@@ -70,13 +67,14 @@ public class ProcessoResource {
 		processo.setNomeProcesso(processoDto.getNomeProcesso());
 		processo.setDescricaoProcesso(processoDto.getDescricaoProcesso());
 
+		
 		return processo;
 	}
 
 	private ProcessoDTO converterProcessoDTO(Processo processo) {
 
-		return ProcessoDTO.builder().codProcesso(processo.getCodProcesso()).descricaoProcesso(processo.getDescricaoProcesso())
-				.nomeProcesso(processo.getNomeProcesso()).build();
+		return ProcessoDTO.builder().codProcesso(processo.getCodProcesso())
+				.descricaoProcesso(processo.getDescricaoProcesso()).nomeProcesso(processo.getNomeProcesso()).build();
 
 	}
 

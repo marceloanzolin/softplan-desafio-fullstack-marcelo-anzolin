@@ -14,9 +14,9 @@ public interface ProcessoUsuarioService {
 	
 	Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario);
 	
-	List<ProcessoUsuario>  buscarProcessoUsuarioStatus(Long codUsuarioFinalizador, String tpStatus);
-	
 	Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso,Long codUsuario);
+	
+	List<ProcessoUsuario>  buscarProcessoUsuarioStatus(Long codUsuarioFinalizador, String tpStatus);
 	
 	void validarProcessoUsuario(ProcessoUsuario processoUsuario);
 	

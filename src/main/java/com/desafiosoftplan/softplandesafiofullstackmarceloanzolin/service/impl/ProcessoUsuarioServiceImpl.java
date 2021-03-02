@@ -17,7 +17,7 @@ import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.Proces
 @Service
 public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
-	private  ProcessoUsuarioRepository processoUsuarioRepository;// como não acessa direto a base de dados
+	private  ProcessoUsuarioRepository processoUsuarioRepository;
 
 	@Autowired
 	public ProcessoUsuarioServiceImpl(ProcessoUsuarioRepository processoUsuarioRepository) {
@@ -46,13 +46,6 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 		return processoUsuarioRepository.save(processoUsuario);
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<ProcessoUsuario> buscarProcessoUsuarioStatus(Long codUsuarioFinalizador,String tpStatus) {
-
-		return processoUsuarioRepository.findByProcessoUsuarioStatusCustom(codUsuarioFinalizador,tpStatus);
-
-	}
 
 	@Override
 	@Transactional(readOnly = true)
@@ -61,10 +54,16 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
+	public List<ProcessoUsuario> buscarProcessoUsuarioStatus(Long codUsuarioFinalizador,String tpStatus) {
+
+		return processoUsuarioRepository.findByProcessoUsuarioStatusCustom(codUsuarioFinalizador,tpStatus);
+
+	}
+	
+	
+	@Override
 	public void validarProcessoUsuario(ProcessoUsuario processoUsuario) {
-		if (processoUsuario.getStatusProcesso() == null || processoUsuario.getStatusProcesso().equals("")) {
-			throw new RNException("Informe o Status do Processo");
-		}
 
 		if (processoUsuario.getUsuarioTriador() == null) {
 			throw new RNException("Informe o Usuário Triador");
@@ -76,6 +75,10 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
 		if (processoUsuario.getCodProcessoUsuario().getCodusuariofinalizador() == 0) {
 			throw new RNException("Informe o Usuário Finalizador");
+		}
+		
+		if (processoUsuario.getStatusProcesso() == null || processoUsuario.getStatusProcesso().equals("")) {
+			throw new RNException("Informe o Status do Processo ");
 		}
 
 	}

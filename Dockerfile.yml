@@ -13,7 +13,7 @@ COPY /target/softplan_desafio.jar softplan-desafio-fullstack-marcelo-anzolin.jar
 SHELL ["*/bin/sh", "-c"]
 
 EXPOSE  5005
-EXPOSE 8081
+EXPOSE 8080
 
 CMD java ${ADDITIONAL_OPTS} -jar softplan-desafio-fullstack-marcelo-anzolin.jar --spring.profiles.active=${PROFILE}
 

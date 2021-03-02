@@ -42,12 +42,6 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
-		
-		<!-- Dependência do H2 para test -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
 			
 		<!-- Bilioteca para notações -->
 		<dependency>

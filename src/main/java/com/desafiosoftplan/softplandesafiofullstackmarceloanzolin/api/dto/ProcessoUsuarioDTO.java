@@ -14,14 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ProcessoUsuarioDTO {
 	
-	private long codProcesso;
+	private Long codProcesso;
 	
-	private long codUsuarioFinalizador;
+	private Long codUsuarioFinalizador;
 
 	private Long codUsuarioTriador;
 	
 	private String parecerProcesso;
 	
 	private String statusProcesso;
-
+	
 }

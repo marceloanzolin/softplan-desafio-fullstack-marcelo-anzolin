@@ -48,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	@Transactional // abre a transação e comita
+	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
 		
 		validarUsuario(usuario);

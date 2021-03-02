@@ -2,7 +2,6 @@ package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.resource;
 
 import java.util.List;
 
-import org.hibernate.loader.plan.exec.process.internal.AbstractRowReader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoDTO;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoIdDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.dto.ProcessoUsuarioDTO;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoId;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
@@ -41,11 +37,13 @@ public class ProcessoUsuarioResource {
 
 	@PostMapping
 	public ResponseEntity salvar(@RequestBody ProcessoUsuarioDTO processoUsuarioDTO) {
-
+         
+		processoUsuarioDTO.setStatusProcesso(TipoStatusProcesso.P.name());
+		
 		ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
 
 		try {
-			
+
 			ProcessoUsuario processoUsuario = processoUsuarioService.salvarProcessoUsuario(processoUsuarioConvertido);
 
 			return new ResponseEntity(processoUsuario, HttpStatus.CREATED);
@@ -53,41 +51,43 @@ public class ProcessoUsuarioResource {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
-	@PutMapping("{codprocesso}/{codusuariofinalizador}")
-	public ResponseEntity inserirParecer( @PathVariable("codprocesso") Long codProcesso , @PathVariable("codusuariofinalizador") Long codUsuarioFinalizador ,@RequestBody ProcessoUsuarioDTO processoUsuarioDTO ) {
-		
-		return  processoUsuarioService.obterProcessoUsuario(codProcesso,codUsuarioFinalizador).map(processoUsuarioReturn -> {
-			try {
-				System.out.println(processoUsuarioDTO);
-				ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
 
-				processoUsuarioConvertido.setCodProcessoUsuario(
-						new ProcessoId(processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador()));
-				
-				processoUsuarioConvertido.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
-				processoUsuarioConvertido.setStatusProcesso(TipoStatusProcesso.F);
+	@PutMapping
+	public ResponseEntity inserirParecer(
+			@RequestBody ProcessoUsuarioDTO processoUsuarioDTO) {
 
-				processoUsuarioService.incluirParecer(processoUsuarioConvertido);
+		return processoUsuarioService.obterProcessoUsuario(processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador())
+				.map(processoUsuarioReturn -> {
+					try {
 
-				return ResponseEntity.ok(processoUsuarioConvertido);
-			} catch (RNException e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+						ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
 
-		}).orElseGet(() -> new ResponseEntity("Usuário não encontrado!", HttpStatus.BAD_REQUEST));
-		
+						processoUsuarioConvertido.setCodProcessoUsuario(new ProcessoId(
+								processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador()));
+
+						processoUsuarioConvertido.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
+						processoUsuarioConvertido.setStatusProcesso(TipoStatusProcesso.F);
+						
+						processoUsuarioService.incluirParecer(processoUsuarioConvertido);
+
+						return ResponseEntity.ok(processoUsuarioConvertido);
+					} catch (RNException e) {
+						return ResponseEntity.badRequest().body(e.getMessage());
+					}
+
+				}).orElseGet(() -> new ResponseEntity("Processo para este usuário não encontrado!", HttpStatus.BAD_REQUEST));
+
 	}
-	
-	@GetMapping 
-	public ResponseEntity buscarProcessoUsuarioStatus(@RequestParam("codusuariofinalizador") Long codUsuarioFinalizador, @RequestParam("tpstatus") String tpStatus) {
 
-		List<ProcessoUsuario>listaProcessosUsuarios = processoUsuarioService.buscarProcessoUsuarioStatus(codUsuarioFinalizador,tpStatus);
-		
+	@GetMapping
+	public ResponseEntity buscarProcessoUsuarioStatus(@RequestParam("codusuariofinalizador") Long codUsuarioFinalizador,
+			@RequestParam("tpstatus") String tpStatus) {
+
+		List<ProcessoUsuario> listaProcessosUsuarios = processoUsuarioService
+				.buscarProcessoUsuarioStatus(codUsuarioFinalizador, tpStatus);
 
 		return ResponseEntity.ok(listaProcessosUsuarios);
 	}
-	
 
 	private ProcessoUsuario converterProcessoUsuario(ProcessoUsuarioDTO processoUsuarioDTO) {
 
@@ -105,12 +105,12 @@ public class ProcessoUsuarioResource {
 			processoUsuario.setUsuarioTriador(usuarioTriador);
 		}
 
-		if (!processoUsuarioDTO.getStatusProcesso().isEmpty() || processoUsuarioDTO.getStatusProcesso() != null) {
-			processoUsuario.setStatusProcesso(TipoStatusProcesso.valueOf(processoUsuarioDTO.getStatusProcesso()));
-		}
-
 		if (processoUsuarioDTO.getParecerProcesso() != null || processoUsuarioDTO.getParecerProcesso() != "") {
 			processoUsuario.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
+		}
+
+		if (!processoUsuarioDTO.getStatusProcesso().isEmpty() || processoUsuarioDTO.getStatusProcesso() != null) {
+			processoUsuario.setStatusProcesso(TipoStatusProcesso.valueOf(processoUsuarioDTO.getStatusProcesso()));
 		}
 
 		return processoUsuario;
