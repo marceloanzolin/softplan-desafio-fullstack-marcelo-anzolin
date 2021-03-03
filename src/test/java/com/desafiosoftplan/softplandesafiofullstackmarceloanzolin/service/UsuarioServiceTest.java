@@ -28,8 +28,8 @@ public class UsuarioServiceTest {
 	@Test
 	public void devAutenticarUsuario() {
 		
-		String email = "mtavares@upf.br";
-		String senha = "123";
+		String email = "finalizador2@gmail.com";
+		String senha = "12356";
 		
 		Usuario usuario  = Usuario.builder().emailUsuario(email).senhaUsuario(senha).codUsuario(1).build();
 		
@@ -43,18 +43,18 @@ public class UsuarioServiceTest {
 		
 		 repository.deleteAll();
 		 
-		 service.validarEmail("mtavares@upf.br");
+		 service.validarEmail("finalizador2@gmail.com");
 	}
 
 	@Test
 	public void lancarErroAoValidarSeEmailCadastrado() {
 	
-		Usuario usuario = Usuario.builder().nmUsuario("marcelo").emailUsuario("mtavares@upf.br").senhaUsuario("123").build();
+		Usuario usuario = Usuario.builder().nmUsuario("marcelo").emailUsuario("mtavares@gmail.br").senhaUsuario("123").build();
 		 
 		repository.save(usuario);
 		
 	   Assertions.assertThrows(RNException.class, () -> {
-			service.validarEmail("mtavares@upf.br");
+			service.validarEmail("finalizador2@gmail.com");
 	    });
 		
 		

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.ProcessoUsuarioRepository;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoUsuarioService;
@@ -17,7 +16,7 @@ import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.Proces
 @Service
 public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
-	private  ProcessoUsuarioRepository processoUsuarioRepository;
+	private ProcessoUsuarioRepository processoUsuarioRepository;
 
 	@Autowired
 	public ProcessoUsuarioServiceImpl(ProcessoUsuarioRepository processoUsuarioRepository) {
@@ -30,7 +29,6 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 	public ProcessoUsuario salvarProcessoUsuario(ProcessoUsuario processoUsuario) {
 
 		validarProcessoUsuario(processoUsuario);
-		
 
 		return processoUsuarioRepository.save(processoUsuario);
 	}
@@ -46,22 +44,20 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 		return processoUsuarioRepository.save(processoUsuario);
 	}
 
-
 	@Override
 	@Transactional(readOnly = true)
-	public Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso,Long codUsuario) {
-		return processoUsuarioRepository.findByProcessoUsuarioCustom(codProcesso,codUsuario);
+	public Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso, Long codUsuario) {
+		return processoUsuarioRepository.findByProcessoUsuarioCustom(codProcesso, codUsuario);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<ProcessoUsuario> buscarProcessoUsuarioStatus(Long codUsuarioFinalizador,String tpStatus) {
+	public List<ProcessoUsuario> buscarProcessoUsuarioStatus(Long codUsuarioFinalizador, String tpStatus) {
 
-		return processoUsuarioRepository.findByProcessoUsuarioStatusCustom(codUsuarioFinalizador,tpStatus);
+		return processoUsuarioRepository.findByProcessoUsuarioStatusCustom(codUsuarioFinalizador, tpStatus);
 
 	}
-	
-	
+
 	@Override
 	public void validarProcessoUsuario(ProcessoUsuario processoUsuario) {
 
@@ -76,7 +72,7 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 		if (processoUsuario.getCodProcessoUsuario().getCodusuariofinalizador() == 0) {
 			throw new RNException("Informe o Usuário Finalizador");
 		}
-		
+
 		if (processoUsuario.getStatusProcesso() == null || processoUsuario.getStatusProcesso().equals("")) {
 			throw new RNException("Informe o Status do Processo ");
 		}

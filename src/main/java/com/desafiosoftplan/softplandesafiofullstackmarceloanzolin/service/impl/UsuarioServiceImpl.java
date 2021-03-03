@@ -15,7 +15,7 @@ import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.reposito
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.UsuarioService;
 
 /**
- * Implementação do serviço  de {@see UsuarioService.java}
+ * Implementação do serviço de {@see UsuarioService.java}
  * 
  * @author Marcelo Anzolin
  * @version 1.0
@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario autenticar(String email, String senha) {
 
 		Optional<Usuario> usuario = usuarioRepository.findByEmailUsuario(email);
-		
+
 		if (!usuario.isPresent()) {
 			throw new ErroAutenticacao("Email não encontrado.");
 		}
@@ -50,10 +50,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
-		
+
 		validarUsuario(usuario);
 		validarEmail(usuario.getEmailUsuario());
-		
+
 		return usuarioRepository.save(usuario);
 	}
 
@@ -61,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void validarEmail(String email) {
 
 		boolean existeEmail = usuarioRepository.existsByEmailUsuario(email);
-		
+
 		if (existeEmail) {
 			throw new RNException("Email informado já existente!");
 		}
@@ -70,7 +70,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public Usuario atualizar(Usuario usuario) {
-		
+
 		validarUsuario(usuario);
 		Objects.requireNonNull(usuario.getCodUsuario());
 		return usuarioRepository.save(usuario);
@@ -79,20 +79,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public void deletar(Usuario usuario) {
-		
+
 		Objects.requireNonNull(usuario.getCodUsuario());
 		usuarioRepository.delete(usuario);
 	}
-	
+
 	@Override
 	public Optional<Usuario> obterPorId(Long codUsuario) {
-		
+
 		return usuarioRepository.findById(codUsuario);
 	}
 
 	@Transactional(readOnly = true)
 	public List<Usuario> buscarTodosUsuarios() {
-		
+
 		return usuarioRepository.findAll();
 	}
 
@@ -119,7 +119,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 	}
-
-	
 
 }

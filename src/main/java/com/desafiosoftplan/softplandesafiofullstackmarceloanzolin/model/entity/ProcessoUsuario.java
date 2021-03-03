@@ -15,6 +15,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+/**
+ * Classe Entidade responsável por mapear a tabela que armazena os processos vinculados de um usuário.
+ * Utilizado para realização dos mapeamentos a biblioteca @Lombok.
+ * 
+ * @author Marcelo Anzolin
+ * @version 1.0
+ * @see <package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity>
+ */
 
 @Entity
 @Table(name = "processousuario", schema = "processos")

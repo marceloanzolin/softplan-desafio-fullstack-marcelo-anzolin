@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -34,7 +33,7 @@ public class UsuarioRepositoryTest {
 		Usuario usuario = criarUsuario();
 		entityManager.persist(usuario);
 
-		boolean result = repository.existsByEmailUsuario("mtavares@gmail.com");
+		boolean result = repository.existsByEmailUsuario("finalizador2@gmail.com");
 
 		Assertions.assertThat(result).isTrue();
 
@@ -43,7 +42,7 @@ public class UsuarioRepositoryTest {
 	@Test
 	public void retornoDeveSerFalsoUsuariNaoCadastradoComEmail() {
 
-		boolean result = repository.existsByEmailUsuario("mtavares@gmail.com");
+		boolean result = repository.existsByEmailUsuario("finalizador4@gmail.com");
 
 		Assertions.assertThat(result).isFalse();
 
@@ -53,40 +52,36 @@ public class UsuarioRepositoryTest {
 	public void persisteUsuario() {
 
 		Usuario usuario = criarUsuario();
-		
+
 		Usuario novoUsuario = repository.save(usuario);
 
 		Assertions.assertThat(novoUsuario.getCodUsuario()).isNotNull();
 
 	}
-	
+
 	@Test
 	public void retornabuscaUsuarioPorEmail() {
 
 		Usuario usuario = criarUsuario();
 		entityManager.persist(usuario);
 
-		Optional<Usuario> result = repository.findByEmailUsuario("mtavares@gmail.com");
+		Optional<Usuario> result = repository.findByEmailUsuario("finalizador2@gmail.com");
 
-		
 		Assertions.assertThat(result.isPresent()).isTrue();
 
 	}
-	
-	
+
 	@Test
 	public void naoretornabuscaUsuarioPorEmail() {
-		
-		Optional<Usuario> result = repository.findByEmailUsuario("mtavares@gmail.com");
 
-		
+		Optional<Usuario> result = repository.findByEmailUsuario("finalizadorteste@gmail.com");
+
 		Assertions.assertThat(result.isPresent()).isFalse();
 
 	}
-	
+
 	public static Usuario criarUsuario() {
-		
-		return Usuario.builder().nmUsuario("Marcelo").emailUsuario("mtavares@gmail.com").senhaUsuario("123")
-				.build();
+
+		return Usuario.builder().nmUsuario("Marcelo").emailUsuario("mtavares@gmail.com").senhaUsuario("123").build();
 	}
 }

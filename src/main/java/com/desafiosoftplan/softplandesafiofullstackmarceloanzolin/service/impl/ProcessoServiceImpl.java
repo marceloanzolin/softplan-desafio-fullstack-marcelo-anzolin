@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Processo;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.ProcessoRepository;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoService;
 
@@ -43,7 +42,6 @@ public class ProcessoServiceImpl implements ProcessoService {
 		return processoRepository.save(processo);
 	}
 
-
 	@Override
 	@Transactional(readOnly = true)
 	public List<Processo> buscarTodosProcessos() {
@@ -61,7 +59,6 @@ public class ProcessoServiceImpl implements ProcessoService {
 		if (processo.getDescricaoProcesso() == null || processo.getDescricaoProcesso().trim().equals("")) {
 			throw new RNException("Informe a descrição do Processo");
 		}
-
 
 	}
 

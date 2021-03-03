@@ -9,6 +9,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entidade para representar a chave composta da Classe {@see ProcessoUsuario.java}.
+ * Utilizado para realização dos mapeamentos a biblioteca @Lombok.
+ * 
+ * @author Marcelo Anzolin
+ * @version 1.0
+ * @see <package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity>
+ */
 @Data
 @Builder
 @NoArgsConstructor

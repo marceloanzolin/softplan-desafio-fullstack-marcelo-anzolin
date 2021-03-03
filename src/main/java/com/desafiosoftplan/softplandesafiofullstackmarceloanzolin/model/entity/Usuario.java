@@ -15,13 +15,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 /**
- * Classe responsável por mapear a tabela de Usuários.
- * Utilizado para realização dos mapeamentos a biblioteca @Lombok. <p>
+ * Classe Entidade responsável por mapear a tabela de Usuários. Utilizado para
+ * realização dos mapeamentos a biblioteca @Lombok.
  * 
  * @author Marcelo Anzolin
  * @version 1.0
- * @see <package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity</a>
+ * @see <package
+ *      com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity>
  */
 
 @Entity

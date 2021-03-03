@@ -11,6 +11,8 @@ import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.P
 
 public interface ProcessoRepository extends JpaRepository<Processo, Long> {
 
+	@Query(value = "SELECT * FROM processos.processousuario WHERE codusuariofinalizador = :codusuariofinalizador)", nativeQuery = true)
+	List<ProcessoUsuario> findByProcessoFinalizadorCustom(@Param("codusuariofinalizador") String codUsuarioFinalizador);
 	
 	List<Processo> findAll();
 
