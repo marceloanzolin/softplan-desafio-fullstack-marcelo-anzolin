@@ -59,18 +59,13 @@ public class ProcessoUsuarioResource {
 		return processoUsuarioService.obterProcessoUsuario(processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador())
 				.map(processoUsuarioReturn -> {
 					try {
-
-						ProcessoUsuario processoUsuarioConvertido = converterProcessoUsuario(processoUsuarioDTO);
-
-						processoUsuarioConvertido.setCodProcessoUsuario(new ProcessoId(
-								processoUsuarioDTO.getCodProcesso(), processoUsuarioDTO.getCodUsuarioFinalizador()));
-
-						processoUsuarioConvertido.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
-						processoUsuarioConvertido.setStatusProcesso(TipoStatusProcesso.F);
+					
+						processoUsuarioReturn.setParecerProcesso(processoUsuarioDTO.getParecerProcesso());
+						processoUsuarioReturn.setStatusProcesso(TipoStatusProcesso.F);
 						
-						processoUsuarioService.incluirParecer(processoUsuarioConvertido);
+						processoUsuarioService.incluirParecer(processoUsuarioReturn);
 
-						return ResponseEntity.ok(processoUsuarioConvertido);
+						return ResponseEntity.ok(processoUsuarioReturn);
 					} catch (RNException e) {
 						return ResponseEntity.badRequest().body(e.getMessage());
 					}
