@@ -1,11 +1,11 @@
 package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.api.resource;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +19,6 @@ import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.P
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.ProcessoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoStatusProcesso;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
-import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoService;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.ProcessoUsuarioService;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.UsuarioService;
 
@@ -32,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 public class ProcessoUsuarioResource {
 
 	private final ProcessoUsuarioService processoUsuarioService;
-	private final ProcessoService processoService;
 	private final UsuarioService usuarioService;
 
 	@PostMapping
@@ -83,7 +80,15 @@ public class ProcessoUsuarioResource {
 
 		return ResponseEntity.ok(listaProcessosUsuarios);
 	}
+	
+	@GetMapping("/inserirparecer")
+	public ResponseEntity buscarProcessoUsuarioProcesso(@RequestParam("codprocesso") Long codProcesso,@RequestParam("codusuariofinalizador") Long codUsuarioFinalizador) {
 
+		Optional<ProcessoUsuario> processoUsuario = processoUsuarioService.obterProcessoUsuario(codProcesso, codUsuarioFinalizador);
+
+		return ResponseEntity.ok(processoUsuario);
+	}
+	
 	private ProcessoUsuario converterProcessoUsuario(ProcessoUsuarioDTO processoUsuarioDTO) {
 
 		ProcessoUsuario processoUsuario = new ProcessoUsuario();

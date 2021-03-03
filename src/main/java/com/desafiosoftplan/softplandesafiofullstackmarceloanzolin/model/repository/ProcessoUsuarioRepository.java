@@ -17,7 +17,7 @@ public interface ProcessoUsuarioRepository extends JpaRepository<ProcessoUsuario
 	
 	@Query(value = "SELECT * FROM processos.processousuario    WHERE  codusuariofinalizador = :codusuariofinalizador and statusprocesso = :tpstatus ", nativeQuery = true)
 	List<ProcessoUsuario> findByProcessoUsuarioStatusCustom(@Param("codusuariofinalizador") Long codUsuarioFinalizador,@Param("tpstatus") String tpStatus);
-	
+
 	List<ProcessoUsuario> findAll();
 
 }
