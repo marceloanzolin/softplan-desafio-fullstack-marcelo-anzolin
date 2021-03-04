@@ -77,9 +77,9 @@ Repositório git :  https://github.com/marceloanzolin/softplan-desafio-fullstack
 	Utilizado o yarn
 	Retirada a pasta node_modules
 	
-	Passo Rodar a aplicação Front (recomendo retirar de dentro da pasta do back)
+	Passo Rodar a aplicação Front (colquei na pastado back para versionar)
 	
-	yarn install (para baixar as dependencias que estão do package)
+	yarn install (para baixar as dependências que estão no package)
 	yarn start   ( para rodar a aplicação )
 	
 	http://localhost:3000/#/login
