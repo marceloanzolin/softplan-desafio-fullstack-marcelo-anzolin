@@ -27,9 +27,6 @@ CREATE TABLE processos.processo (
     descricaoprocesso character varying(200) NOT NULL
 );
 
-
-ALTER TABLE processos.processo OWNER TO postgres;
-
 COMMENT ON TABLE processos.processo IS 'Tabela que armazena os processos cadastrados para o sistema';
 
 CREATE TABLE processos.processousuario (
