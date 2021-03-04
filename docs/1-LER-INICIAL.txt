@@ -35,8 +35,8 @@ Repositório git :  https://github.com/marceloanzolin/softplan-desafio-fullstack
 	=== Docker	=== 
 
 		Configurado o arquivo Dockerfile e docker-compose para que seja possivel rodar a api, porém caso não 'suba' importante atentar em qual IP esta rodando o banco postgres
-		na Docker,em alguns casos não reconhece o localhost nem  0.0.0.0 no, meu caso em alguns testes estava rodando no 
-		IP  172.19.0.2:5432 necessário mudar esta config no applicationConexte da aplicação
+		na Docker,em alguns casos não reconhece o localhost meu caso em alguns testes estava rodando no 
+		IP  172.19.0.2:5432 necessário mudar esta config no application.properties da aplicação
 
 		para descobrir o IP da da postgres na docker usei :
 
