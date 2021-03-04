@@ -1,0 +1,87 @@
+Projeto Desafio Softplan Marcelo Tavares Anzolin
+
+Repositório git :  https://github.com/marceloanzolin/softplan-desafio-fullstack-marcelo-anzolin
+
+======= INICIO BACKEND ==============
+
+		Api Backend construida em java 8 com spring boot versão 2.4
+		Roda na porta 8080;
+
+		A aplicação pode ser rodada excutando a aplicação pela classe principal
+			SoftplanDesafioFullstackMarceloAnzolinApplication.java
+			
+		ou docker (Na sessão DOCKER algumas informações sobre) 
+
+	=== Base de dados ===
+
+		Banco de dados utilizado foi postgres Versão 13 
+
+		Desafio Marcelo Anzolin 
+
+		SCHEMA : PROCESSOS
+
+		TABELAS: USUARIO,PROCESSO,PROCESSOUSUARIO
+
+		Na pasta C:\softplan-desafio-fullstack-marcelo-anzolin\docs\basededados temos os scripts de criacao da base de dados 
+
+		3-gera_bd_gprocessosoftplan = Script que cria a base de dados SCHEMA e a tabelas,sequence,contraints, checks
+
+		4-dados_gprocessosoftplan = Script que alimenta as tabelas.
+
+		Se não foi inserido ao menos dados na tabela de USUARIO, será necessário criar um via insomnia [POST Cria um usuário] para que possa ser feito o login no sistema
+
+	=== Fim Base de dados ==
+
+	=== Docker	=== 
+
+		Configurado o arquivo Dockerfile e docker-compose para que seja possivel rodar a api, porém caso não 'suba' importante atentar em qual IP esta rodando o banco postgres
+		na Docker,em alguns casos não reconhece o localhost nem  0.0.0.0 no, meu caso em alguns testes estava rodando no 
+		IP  172.19.0.2:5432 necessário mudar esta config no applicationConexte da aplicação
+
+		para descobrir o IP da da postgres na docker usei :
+
+			docker network ls
+			docker network inspect <ID> o ID do processo referente ao projeto softplan-desafio-fullstack-marcelo-anzolin
+
+		Verifcar o IP em ipv4 network
+
+		Compilar e Atualizar o .jar 
+
+			mvn clean install -DskipTests   [-DskipTests tem alguns testes implementados no backend, por isso utilizo -DskipTests para não executá-los ]
+			
+		Subir a docker 
+
+			docker-compose up --build --force-recreate
+
+		OBS.Coloquei a pasta do front no mesma pasta do backend para ficar no mesmo repositório somente na finalização do desafio,se desejar pode ser retirada de dentro 
+		para compilação do back
+
+	=== Fim Docker ===
+
+	==== INSOMNIA === 
+		Testes de consumo da API  foi realizada com o insomnia, o JSON gerado pelo insomnia com todos os serviços disponiveis no Back estão na pasta 
+
+		C:\softplan-desafio-fullstack-marcelo-anzolin\docs\InsomniaJSON
+		
+		Basta importar e executar as operações
+
+	==== FIM  INSOMNIA ===== 
+
+
+===== FIM BACKEND ==================
+
+======= INICIO FRONT  ==============
+
+	Front desenvolvido em REACT 
+	Utilizada biblioteca PrimeReact
+	Utilizado o yarn
+	Retirada a pasta node_modules
+	
+	Passo Rodar a aplicação Front (recomendo retirar de dentro da pasta do back)
+	
+	yarn install (para baixar as dependencias que estão do package)
+	yarn start   ( para rodar a aplicação )
+	
+	http://localhost:3000/#/login
+
+======= FIM FRONT  ==============

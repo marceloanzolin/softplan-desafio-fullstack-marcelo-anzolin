@@ -10,7 +10,7 @@ function NavBar(props) {
         <div className="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
             <div className="container">
                 
-                <a href="#/home" className="navbar-brand">  Gerenciador de Processo Softplan</a>
+                <a href="#/home" className="navbar-brand">  Gerenciador de Processos Softplan</a>
                 <a href="#/login" className="navbar-link"> Login  </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
