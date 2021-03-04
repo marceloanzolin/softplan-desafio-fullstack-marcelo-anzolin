@@ -23,14 +23,14 @@ export const AuthConsumer = AuthContext.Consumer;
 export const AuthProvider = AuthContext.Provider;
 
 class App extends React.Component {
- render() {
+  render() {
     return (
       <ProvedorAutenticacao>
-      
+
         <NavBar />
-          <div className="container">
-            <Rotas />
-          </div>
+        <div className="container">
+          <Rotas />
+        </div>
       </ProvedorAutenticacao>
     )
   }

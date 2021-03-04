@@ -1,7 +1,7 @@
 import ApiService from '../apiservice';
 import ErroValidacao from '../exception/ErroValidacao';
 
- class UsuarioService extends ApiService {
+class UsuarioService extends ApiService {
 
     constructor() {
         super('api/usuarios');
@@ -12,7 +12,7 @@ import ErroValidacao from '../exception/ErroValidacao';
 
     }
 
-    obterUsuarioPorId(id){
+    obterUsuarioPorId(id) {
         return this.get(`/${id}`)
     }
 
@@ -25,19 +25,20 @@ import ErroValidacao from '../exception/ErroValidacao';
     }
 
     consultarUsuarios() {
-        //let params = `?ano=${usuarioFiltro.ano}`;
 
-        //if (usuarioFiltro.mes){
-        //  params = `${params}&mes=${usuarioFiltro.mes}`
-        // }
-        let params = `?nmusuario=CELO`
-        
         return this.get();
 
     }
 
+    deletar(codUsuario) {
+        return this.delete(`/${codUsuario}`);
+    }
 
-    validarUsuario(usuario){
+    obterUsuarioPorTipo(tpUsuario) {
+        return this.get(`/buscausuario`)
+    }
+
+    validarUsuario(usuario) {
 
         const erros = [];
 
@@ -60,22 +61,18 @@ import ErroValidacao from '../exception/ErroValidacao';
             erros.push('Informe o Tipo do Usuário');
         }
 
-        if (erros && erros.length > 0){
+        if (erros && erros.length > 0) {
 
             throw new ErroValidacao(erros);
-        } 
+        }
     }
 
-    deletar(codUsuario) {
-        return this.delete(`/${codUsuario}`);
-    }
-
-    obterListaTipos(){
-        return  [
+    obterListaTipos() {
+        return [
             { label: 'Selecione...', value: '' },
             { label: 'Administrador', value: 'A' },
-            { label: 'Triador' , value : 'T' },
-            { label: 'Finalizador' , value : 'F' }
+            { label: 'Triador', value: 'T' },
+            { label: 'Finalizador', value: 'F' }
         ]
     }
 

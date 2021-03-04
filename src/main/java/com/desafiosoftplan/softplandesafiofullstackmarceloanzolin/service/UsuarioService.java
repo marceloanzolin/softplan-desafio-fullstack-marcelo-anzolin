@@ -3,7 +3,10 @@ package com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
 
 /**
  * Interface de serviço para as operação referentes as classe de {@see Usuario.java}
@@ -73,6 +76,15 @@ public interface UsuarioService {
 	 * 
 	 */
 	List<Usuario> buscarTodosUsuarios();
+	
+	/**
+	 * Método que recupera uma lista de {@see Usuario.java} existentes na base de dados.
+	 * 
+	 * @param  TipoUsuario recupera os usuários do tipo passado por parametro
+	 * @return List<Usuario> de {@see Usuario.java}
+	 * 
+	 */
+	List<Usuario> buscaUsuarioPorTpUsuario(TipoUsuario tpUsuario);
 	
 	/**
 	 * Método responsável por validar as informações do objeto {@see Usuario.java}

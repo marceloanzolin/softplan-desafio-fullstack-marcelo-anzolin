@@ -1,15 +1,15 @@
 import ApiService from '../apiservice';
 
- class ProcessoUsuarioService extends ApiService {
+class ProcessoUsuarioService extends ApiService {
 
     constructor() {
         super('api/processosusuario');
     }
 
-    obterProcessoUsuario(codProcesso,codUsuarioFinalizador){
+    obterProcessoUsuario(codProcesso, codUsuarioFinalizador) {
 
         let params = `?codprocesso=${codProcesso}&codusuariofinalizador=${codUsuarioFinalizador}`
-   
+
         return this.get(`/inserirparecer${params}`)
 
     }
@@ -19,19 +19,19 @@ import ApiService from '../apiservice';
     }
 
     consultarProcessos() {
-        
+
         return this.get();
 
     }
-    
+
     atualizar(processosUsuario) {
         let params = `?codprocesso=${processosUsuario.codprocesso}&codprocessofinalizador=${processosUsuario.codusuariofinalizador}`
-        return this.put(`/${params}`,processosUsuario);
+        return this.put(`/${params}`, processosUsuario);
     }
 
-    consultarProcessosFinalizadorStatus(parametros){
+    consultarProcessosFinalizadorStatus(parametros) {
         let params = `?codusuariofinalizador=${parametros.codUsuarioLogado}&tpstatus=${parametros.statusProcesso}`
-      
+
         return this.get(params);
     }
 

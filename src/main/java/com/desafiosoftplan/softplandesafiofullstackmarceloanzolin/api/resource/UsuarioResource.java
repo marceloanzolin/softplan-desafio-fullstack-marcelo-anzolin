@@ -180,7 +180,21 @@ public class UsuarioResource {
 
 		return usuario;
 	}
+	
+	/**
+	 * Método GET que recupera uma lista com os {@see Usuario.java} 
+	 * do tipo F de Finalizador
+	 * 
+	 * @return List<Usuario> com os {@see Usuario.java} encontrados
+	 */
+	@GetMapping("/buscausuario")
+	public ResponseEntity obterUsuarioPorTpUsuario() {
 
+		List<Usuario> listaUsuarios = usuarioService.buscaUsuarioPorTpUsuario(TipoUsuario.F);
+		 
+		 return ResponseEntity.ok(listaUsuarios);
+	}
+	
 	/**
 	 * Método utilizado para converter um {@see Usuario.java} em
 	 * {@see UsuarioDTO.java}

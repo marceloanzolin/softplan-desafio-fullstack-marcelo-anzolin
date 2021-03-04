@@ -12,8 +12,6 @@ public interface ProcessoUsuarioService {
 
 	ProcessoUsuario incluirParecer(ProcessoUsuario processoUsuario);
 	
-	Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario);
-	
 	Optional<ProcessoUsuario> obterProcessoUsuario(Long codProcesso,Long codUsuario);
 	
 	List<ProcessoUsuario>  buscarProcessoUsuarioStatus(Long codUsuarioFinalizador, String tpStatus);

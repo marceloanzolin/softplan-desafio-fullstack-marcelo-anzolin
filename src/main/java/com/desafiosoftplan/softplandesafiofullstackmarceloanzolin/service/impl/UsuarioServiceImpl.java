@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.ErroAutenticacao;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.exception.RNException;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.repository.UsuarioRepository;
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.service.UsuarioService;
 
@@ -94,6 +95,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public List<Usuario> buscarTodosUsuarios() {
 
 		return usuarioRepository.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Usuario> buscaUsuarioPorTpUsuario(TipoUsuario tpUsuario){
+		return usuarioRepository.findByTpUsuario(tpUsuario);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.entity.Usuario;
+import com.desafiosoftplan.softplandesafiofullstackmarceloanzolin.model.enums.TipoUsuario;
 
 /**
  * Interface de de Repository para operações na base de dados referente a classe
@@ -41,5 +42,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	 * @return List<Usuario>
 	 */
 	List<Usuario> findAll();
+	
+	/**
+	 * Método responsável por recuperar um List<Usuario> 
+	 * {@see Usuario.java} encontrados na base  para o tipo passado por parametro .
+	 * @param Tipo do Usuário
+	 * @return List<Usuario>
+	 */
+	List<Usuario> findByTpUsuario(TipoUsuario tpUsuario);
 
 }

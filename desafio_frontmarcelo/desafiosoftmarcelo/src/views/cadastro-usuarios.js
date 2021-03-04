@@ -33,7 +33,7 @@ class CadastroUsuario extends React.Component {
     }
 
     componentDidMount() {
-      
+
         const params = this.props.match.params;
 
         if (params.id) {
@@ -160,15 +160,15 @@ class CadastroUsuario extends React.Component {
                                     placeholder="Digite o Email" />
                             </FormGroup>
                             <div>
-                            <FormGroup id="inputTipo" label="Tipo:*">
-                            <SelectMenu id="inputTipo"
-                                lista={tipoUsuarios}
-                                className="form-control"
-                                name="tpUsuario"
-                                value={this.state.tpUsuario}
-                                onChange={this.handleChange}
-                            />
-                            </FormGroup>
+                                <FormGroup id="inputTipo" label="Tipo:*">
+                                    <SelectMenu id="inputTipo"
+                                        lista={tipoUsuarios}
+                                        className="form-control"
+                                        name="tpUsuario"
+                                        value={this.state.tpUsuario}
+                                        onChange={this.handleChange}
+                                    />
+                                </FormGroup>
                             </div>
                             <FormGroup label="Senha: *" htmlFor="inputSenha">
                                 <input type="password"
@@ -192,7 +192,7 @@ class CadastroUsuario extends React.Component {
                                 this.state.atualizando ? (
                                     <button type="button" onClick={this.atualizar} className="btn btn-success">Atualizar</button>
                                 ) :
-                                    <button type="button" onClick={this.cadastrar} className="btn btn-success"><i className="pi pi-check p-mr-2"/> Salvar</button>
+                                    <button type="button" onClick={this.cadastrar} className="btn btn-success"><i className="pi pi-check p-mr-2" /> Salvar</button>
                             }
 
                             <button type="button" onClick={this.cancelar} className="btn btn-danger">Cancelar</button>

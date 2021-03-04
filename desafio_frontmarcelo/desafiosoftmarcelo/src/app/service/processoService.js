@@ -1,14 +1,14 @@
 import ApiService from '../apiservice';
 import ErroValidacao from '../exception/ErroValidacao';
 
- class ProcessoService extends ApiService {
+class ProcessoService extends ApiService {
 
     constructor() {
         super('api/processos');
     }
 
 
-    obterProcessoPorId(id){
+    obterProcessoPorId(id) {
         return this.get(`/${id}`)
     }
 
@@ -18,12 +18,12 @@ import ErroValidacao from '../exception/ErroValidacao';
 
 
     consultarProcessos() {
-        
+
         return this.get();
 
     }
 
-    validarProcesso(processo){
+    validarProcesso(processo) {
 
         const erros = [];
 
@@ -36,16 +36,16 @@ import ErroValidacao from '../exception/ErroValidacao';
         }
 
 
-        if (erros && erros.length > 0){
+        if (erros && erros.length > 0) {
 
             throw new ErroValidacao(erros);
-        } 
+        }
     }
 
-    obterListaStatusProcesso(){
-        return  [
+    obterListaStatusProcesso() {
+        return [
             { label: 'Pendente', value: 'P' },
-            { label: 'Finalizado' , value : 'F' }
+            { label: 'Finalizado', value: 'F' }
         ]
     }
 

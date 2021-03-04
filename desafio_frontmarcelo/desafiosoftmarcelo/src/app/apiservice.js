@@ -25,6 +25,7 @@ class ApiService {
     }
 
     get(url) {
+        
         let requestUrl = '';
         if (typeof url === "undefined") {
             requestUrl = `${this.apiurl}`

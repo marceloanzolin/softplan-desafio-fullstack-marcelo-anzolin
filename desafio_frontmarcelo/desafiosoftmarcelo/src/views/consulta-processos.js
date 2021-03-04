@@ -42,7 +42,8 @@ class ConsultaProcessos extends React.Component {
     }
 
     editar = (id) => {
-        this.props.history.push(`/cadastro-processos/${id}`)
+        messages.msgAlerta('Infelizmente esta opção não esta disponivel :( ).Porém você pode usar o insominia para vincular o usuario. O Json esta junto na pasta docs do projeto!');
+        // this.props.history.push(`/cadastro-vincula-finalizador/${id}`)
     }
 
     preparaFormularioCadastro = () => {

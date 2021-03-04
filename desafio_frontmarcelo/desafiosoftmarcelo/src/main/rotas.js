@@ -9,15 +9,16 @@ import ConsultaProcessos from '../views/consulta-processos';
 import consultaProcessosFinalizador from '../views/consulta-processos-finalizador';
 import Home from '../views/home';
 
-import {AuthConsumer} from '../main/provedorAutenticacao';
+import { AuthConsumer } from '../main/provedorAutenticacao';
 
-import { Route, Switch, HashRouter,Redirect } from 'react-router-dom';
+import { Route, Switch, HashRouter, Redirect } from 'react-router-dom';
 import cadastroProcessoUsuario from '../views/cadastro-processo-usuario';
+import cadastroVinculaFinalizador from '../views/cadastro-vincula-finalizador';
 
 
-function RotaAutenticada({ component: Component,isUsuarioAutenticado,tpUsuario, ...props }) {
+function RotaAutenticada({ component: Component, isUsuarioAutenticado, tpUsuario, ...props }) {
     return (
-     
+
         <Route {...props} render={(componentProps) => {
             if (isUsuarioAutenticado) {
                 return (
@@ -25,10 +26,10 @@ function RotaAutenticada({ component: Component,isUsuarioAutenticado,tpUsuario, 
                     <Component {...componentProps} />
 
                 )
-            }else{
-                    return (
-                        <Redirect to={{pathname :'/login',state : {from:componentProps.location} }}></Redirect>
-                    )
+            } else {
+                return (
+                    <Redirect to={{ pathname: '/login', state: { from: componentProps.location } }}></Redirect>
+                )
             }
 
         }
@@ -39,25 +40,29 @@ function RotaAutenticada({ component: Component,isUsuarioAutenticado,tpUsuario, 
 function Rotas(props) {
     return (
         <HashRouter>
-            <Switch> 
+            <Switch>
                 <Route path="/login" component={Login}></Route>
-                <Route path="/cadastro-usuarios/:id?" component={CadastroUsuario}></Route> 
-                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado}   path="/consulta-usuarios" component={ConsultaUsuarios}></RotaAutenticada>
-                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado}   path="/home" component={Home}></RotaAutenticada>
+                <Route path="/cadastro-usuarios/:id?" component={CadastroUsuario}></Route>
+                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado} path="/consulta-usuarios" component={ConsultaUsuarios}></RotaAutenticada>
+                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado} path="/home" component={Home}></RotaAutenticada>
 
-                <Route path="/cadastro-processos/:id?" component={CadastroProcesso}></Route> 
-                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado}   path="/consulta-processos" component={ConsultaProcessos}></RotaAutenticada>
-                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado}   path="/consulta-processos-finalizador" component={consultaProcessosFinalizador}></RotaAutenticada>
-                <Route path="/cadastro-processo-usuario/:codprocesso/:codusuariofinalizador" component={cadastroProcessoUsuario}></Route> 
+                
+                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado} path="/consulta-processos" component={ConsultaProcessos}></RotaAutenticada>
+                <RotaAutenticada tpUsuario={props.tpUsuario} isUsuarioAutenticado={props.isUsuarioAutenticado} path="/consulta-processos-finalizador" component={consultaProcessosFinalizador}></RotaAutenticada>
+                <Route path="/cadastro-processos/:id?" component={CadastroProcesso}></Route>
+                <Route path="/cadastro-vincula-finalizador/:id?" component={cadastroVinculaFinalizador}></Route>
+                <Route path="/cadastro-processo-usuario/:codprocesso/:codusuariofinalizador" component={cadastroProcessoUsuario}></Route>
+
+
             </Switch>
         </HashRouter>
     )
 }
 
-export default  () => (
+export default () => (
     <AuthConsumer>
         {
-            (context)=>(<Rotas tpUsuario={context.tpUsuario} isUsuarioAutenticado={context.isAutenticado}/>)
+            (context) => (<Rotas tpUsuario={context.tpUsuario} isUsuarioAutenticado={context.isAutenticado} />)
         }
 
     </AuthConsumer>

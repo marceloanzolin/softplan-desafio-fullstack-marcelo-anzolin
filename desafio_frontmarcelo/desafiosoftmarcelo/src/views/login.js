@@ -23,10 +23,10 @@ class Login extends React.Component {
         this.service.autenticar({
             emailUsuario: this.state.email,
             senhaUsuario: this.state.senha
-        }).then( response =>{ 
-             this.context.iniciarSessao(response.data);
-             this.props.history.push('/home');
-        }).catch(erro =>{
+        }).then(response => {
+            this.context.iniciarSessao(response.data);
+            this.props.history.push('/home');
+        }).catch(erro => {
             msgErro(erro.response.data)
         })
     }
@@ -63,7 +63,7 @@ class Login extends React.Component {
                                                     id="exampleInputPassword1" placeholder="Senha" />
                                             </FormGroup>
                                             <button onClick={this.entrar} className="btn btn-success">Entrar</button>
-                                           
+
                                         </fieldset>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@ class Login extends React.Component {
             </div>
         )
     }
-  
+
 }
 
 Login.contextType = AuthContext

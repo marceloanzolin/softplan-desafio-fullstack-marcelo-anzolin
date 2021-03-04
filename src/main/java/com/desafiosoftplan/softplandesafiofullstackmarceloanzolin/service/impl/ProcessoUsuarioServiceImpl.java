@@ -79,10 +79,5 @@ public class ProcessoUsuarioServiceImpl implements ProcessoUsuarioService {
 
 	}
 
-	@Override
-	public Optional<ProcessoUsuario> obterPorProcessoUsuario(Long codUsuario) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
